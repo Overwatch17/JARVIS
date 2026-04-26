@@ -21,3 +21,15 @@ def load_json(path, default):
 def save_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+CONFIG_FILE = CONFIG_DIR / "config.json"
+DEFAULT_CONFIG = {"name": "Sir", "theme": "default"}
+
+
+def load_config():
+    return load_json(CONFIG_FILE, DEFAULT_CONFIG)
+
+
+def save_config(cfg):
+    save_json(CONFIG_FILE, cfg)
