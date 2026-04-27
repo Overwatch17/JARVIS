@@ -33,3 +33,16 @@ def load_config():
 
 def save_config(cfg):
     save_json(CONFIG_FILE, cfg)
+
+
+HISTORY_FILE = CONFIG_DIR / "history.json"
+
+
+def log_command(command, result=None):
+    history = load_json(HISTORY_FILE, [])
+    history.append({"timestamp": datetime.now().isoformat(), "command": command, "result": result})
+    save_json(HISTORY_FILE, history[-100:])
+
+
+def get_recent_commands(n=10):
+    return load_json(HISTORY_FILE, [])[-n:]
