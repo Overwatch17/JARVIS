@@ -46,3 +46,7 @@ def log_command(command, result=None):
 
 def get_recent_commands(n=10):
     return load_json(HISTORY_FILE, [])[-n:]
+
+
+def speak(text):
+    print(f"JARVIS: {text}")
