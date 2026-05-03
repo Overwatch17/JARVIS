@@ -50,3 +50,15 @@ def get_recent_commands(n=10):
 
 def speak(text):
     print(f"JARVIS: {text}")
+
+
+def greet():
+    h = datetime.now().hour
+    name = load_config().get("name", "Sir")
+    if h < 12:
+        speak(f"Good morning, {name}.")
+    elif h < 18:
+        speak(f"Good afternoon, {name}.")
+    else:
+        speak(f"Good evening, {name}.")
+    speak("JARVIS online. How may I assist you?")
