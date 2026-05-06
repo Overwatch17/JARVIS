@@ -62,3 +62,13 @@ def greet():
     else:
         speak(f"Good evening, {name}.")
     speak("JARVIS online. How may I assist you?")
+
+
+COMMANDS = {}
+
+
+def command(name):
+    def decorator(func):
+        COMMANDS[name] = func
+        return func
+    return decorator
