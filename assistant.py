@@ -72,3 +72,16 @@ def command(name):
         COMMANDS[name] = func
         return func
     return decorator
+
+
+@command("time")
+def cmd_time(query):
+    from datetime import datetime
+    now = datetime.now()
+    speak(f"It is {now.strftime('%I:%M %p')} on {now.strftime('%A, %B %d, %Y')}.")
+
+
+@command("date")
+def cmd_date(query):
+    from datetime import datetime
+    speak(f"Today is {datetime.now().strftime('%A, %B %d, %Y')}.")
