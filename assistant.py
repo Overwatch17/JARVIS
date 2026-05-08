@@ -85,3 +85,14 @@ def cmd_time(query):
 def cmd_date(query):
     from datetime import datetime
     speak(f"Today is {datetime.now().strftime('%A, %B %d, %Y')}.")
+
+
+@command("search")
+def cmd_search(query):
+    import webbrowser
+    q = query.replace("search", "").replace("google", "").strip()
+    if not q:
+        speak("What would you like me to search for?")
+        return
+    webbrowser.open(f"https://www.google.com/search?q={q.replace(' ', '+')}")
+    speak(f"Searching for {q}.")
