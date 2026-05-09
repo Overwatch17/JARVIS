@@ -96,3 +96,12 @@ def cmd_search(query):
         return
     webbrowser.open(f"https://www.google.com/search?q={q.replace(' ', '+')}")
     speak(f"Searching for {q}.")
+
+
+@command("youtube")
+def cmd_youtube(query):
+    import webbrowser
+    q = query.replace("youtube", "").replace("play", "").strip()
+    url = f"https://www.youtube.com/results?search_query={q.replace(' ', '+')}" if q else "https://www.youtube.com"
+    webbrowser.open(url)
+    speak(f"Opening YouTube{q and f' for {q}' or ''}.")
