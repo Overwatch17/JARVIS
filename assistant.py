@@ -105,3 +105,18 @@ def cmd_youtube(query):
     url = f"https://www.youtube.com/results?search_query={q.replace(' ', '+')}" if q else "https://www.youtube.com"
     webbrowser.open(url)
     speak(f"Opening YouTube{q and f' for {q}' or ''}.")
+
+
+@command("wikipedia")
+def cmd_wikipedia(query):
+    q = query.replace("wikipedia", "").replace("who is", "").replace("what is", "").strip()
+    if not q:
+        speak("What should I look up?")
+        return
+    try:
+        import wikipedia
+        speak(f"According to Wikipedia: {wikipedia.summary(q, sentences=2)}")
+    except ImportError:
+        speak("Install wikipedia: pip install wikipedia")
+    except Exception:
+        speak(f"I could not find information on {q}.")
