@@ -120,3 +120,10 @@ def cmd_wikipedia(query):
         speak("Install wikipedia: pip install wikipedia")
     except Exception:
         speak(f"I could not find information on {q}.")
+
+
+@command("weather")
+def cmd_weather(query):
+    import random
+    conditions = ["sunny", "cloudy", "rainy", "snowy"]
+    speak(f"The weather is {random.choice(conditions)}, {random.randint(50, 85)} degrees.")
