@@ -127,3 +127,15 @@ def cmd_weather(query):
     import random
     conditions = ["sunny", "cloudy", "rainy", "snowy"]
     speak(f"The weather is {random.choice(conditions)}, {random.randint(50, 85)} degrees.")
+
+
+@command("joke")
+def cmd_joke(query):
+    import random
+    jokes = [
+        "Why don't scientists trust atoms? Because they make up everything!",
+        "Why did the developer go broke? Because he used up all his cache.",
+        "There are 10 types of people: those who understand binary and those who don't.",
+        "Why do programmers prefer dark mode? Because light attracts bugs.",
+    ]
+    speak(random.choice(jokes))
