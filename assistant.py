@@ -139,3 +139,15 @@ def cmd_joke(query):
         "Why do programmers prefer dark mode? Because light attracts bugs.",
     ]
     speak(random.choice(jokes))
+
+
+@command("quote")
+def cmd_quote(query):
+    import random
+    quotes = [
+        "The only way to do great work is to love what you do. - Steve Jobs",
+        "Innovation distinguishes between a leader and a follower. - Steve Jobs",
+        "Life is what happens when you're busy making other plans. - John Lennon",
+        "The future belongs to those who believe in their dreams. - Eleanor Roosevelt",
+    ]
+    speak(random.choice(quotes))
