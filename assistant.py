@@ -151,3 +151,18 @@ def cmd_quote(query):
         "The future belongs to those who believe in their dreams. - Eleanor Roosevelt",
     ]
     speak(random.choice(quotes))
+
+
+NOTES_FILE = CONFIG_DIR / "notes.json"
+
+
+@command("note")
+def cmd_note(query):
+    text = query.replace("note", "").replace("remember", "").strip()
+    if not text:
+        speak("What would you like me to remember?")
+        return
+    notes = load_json(NOTES_FILE, [])
+    notes.append({"timestamp": datetime.now().isoformat(), "text": text})
+    save_json(NOTES_FILE, notes)
+    speak(f"Noted: {text}")
