@@ -166,3 +166,14 @@ def cmd_note(query):
     notes.append({"timestamp": datetime.now().isoformat(), "text": text})
     save_json(NOTES_FILE, notes)
     speak(f"Noted: {text}")
+
+
+@command("notes")
+def cmd_notes(query):
+    notes = load_json(NOTES_FILE, [])
+    if not notes:
+        speak("You have no notes.")
+        return
+    speak(f"You have {len(notes)} note(s).")
+    for i, n in enumerate(notes[-5:], 1):
+        speak(f"Note {i}: {n['text']}")
