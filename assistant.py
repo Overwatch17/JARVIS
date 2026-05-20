@@ -177,3 +177,18 @@ def cmd_notes(query):
     speak(f"You have {len(notes)} note(s).")
     for i, n in enumerate(notes[-5:], 1):
         speak(f"Note {i}: {n['text']}")
+
+
+TODOS_FILE = CONFIG_DIR / "todos.json"
+
+
+@command("todo")
+def cmd_todo(query):
+    text = query.replace("todo", "").replace("add", "").strip()
+    if not text:
+        speak("What should I add to your todo list?")
+        return
+    todos = load_json(TODOS_FILE, [])
+    todos.append({"timestamp": datetime.now().isoformat(), "text": text, "done": False})
+    save_json(TODOS_FILE, todos)
+    speak(f"Added to your todo list: {text}")
