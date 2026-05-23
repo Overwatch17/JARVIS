@@ -192,3 +192,15 @@ def cmd_todo(query):
     todos.append({"timestamp": datetime.now().isoformat(), "text": text, "done": False})
     save_json(TODOS_FILE, todos)
     speak(f"Added to your todo list: {text}")
+
+
+@command("todos")
+def cmd_todos(query):
+    todos = load_json(TODOS_FILE, [])
+    pending = [t for t in todos if not t.get("done")]
+    if not pending:
+        speak("Your todo list is empty.")
+        return
+    speak(f"You have {len(pending)} pending task(s).")
+    for i, t in enumerate(pending, 1):
+        speak(f"{i}. {t['text']}")
