@@ -204,3 +204,22 @@ def cmd_todos(query):
     speak(f"You have {len(pending)} pending task(s).")
     for i, t in enumerate(pending, 1):
         speak(f"{i}. {t['text']}")
+
+
+@command("done")
+def cmd_done(query):
+    todos = load_json(TODOS_FILE, [])
+    pending = [t for t in todos if not t.get("done")]
+    if not pending:
+        speak("No pending tasks.")
+        return
+    try:
+        idx = int(query.replace("done", "").strip()) - 1
+        if 0 <= idx < len(pending):
+            pending[idx]["done"] = True
+            save_json(TODOS_FILE, todos)
+            speak(f"Marked '{pending[idx]['text']}' as done.")
+        else:
+            speak("Invalid task number.")
+    except ValueError:
+        speak("Please specify a task number, e.g., 'done 1'.")
