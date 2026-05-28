@@ -223,3 +223,17 @@ def cmd_done(query):
             speak("Invalid task number.")
     except ValueError:
         speak("Please specify a task number, e.g., 'done 1'.")
+
+
+@command("remind")
+def cmd_remind(query):
+    text = query.replace("remind", "").replace("reminder", "").strip()
+    if not text:
+        speak("What should I remind you about?")
+        return
+    from datetime import timedelta
+    due = datetime.now() + timedelta(hours=1)
+    reminders = load_json(CONFIG_DIR / "reminders.json", [])
+    reminders.append({"text": text, "due": due.isoformat(), "done": False})
+    save_json(CONFIG_DIR / "reminders.json", reminders)
+    speak(f"Reminder set for {due.strftime('%I:%M %p')}: {text}")
