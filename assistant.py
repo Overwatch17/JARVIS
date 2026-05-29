@@ -237,3 +237,14 @@ def cmd_remind(query):
     reminders.append({"text": text, "due": due.isoformat(), "done": False})
     save_json(CONFIG_DIR / "reminders.json", reminders)
     speak(f"Reminder set for {due.strftime('%I:%M %p')}: {text}")
+
+
+@command("history")
+def cmd_history(query):
+    recent = get_recent_commands(10)
+    if not recent:
+        speak("No command history yet.")
+        return
+    speak(f"Your last {len(recent)} commands:")
+    for c in recent:
+        speak(f"- {c['command']}")
