@@ -248,3 +248,16 @@ def cmd_history(query):
     speak(f"Your last {len(recent)} commands:")
     for c in recent:
         speak(f"- {c['command']}")
+
+
+@command("lock")
+def cmd_lock(query):
+    import platform, subprocess
+    system = platform.system()
+    if system == "Windows":
+        subprocess.run(["rundll32.exe", "user32.dll,LockWorkStation"])
+    elif system == "Darwin":
+        subprocess.run(["pmset", "displaysleepnow"])
+    else:
+        subprocess.run(["loginctl", "lock-session"])
+    speak("Locking workstation.")
