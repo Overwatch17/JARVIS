@@ -261,3 +261,10 @@ def cmd_lock(query):
     else:
         subprocess.run(["loginctl", "lock-session"])
     speak("Locking workstation.")
+
+
+@command("sleep")
+def cmd_sleep(query):
+    import platform, subprocess
+    speak("Putting the system to sleep. Goodbye.")
+    subprocess.Popen(["shutdown", "/h"] if platform.system() == "Windows" else ["pmset", "sleepnow"])
