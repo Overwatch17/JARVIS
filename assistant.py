@@ -268,3 +268,16 @@ def cmd_sleep(query):
     import platform, subprocess
     speak("Putting the system to sleep. Goodbye.")
     subprocess.Popen(["shutdown", "/h"] if platform.system() == "Windows" else ["pmset", "sleepnow"])
+
+
+@command("open")
+def cmd_open(query):
+    import webbrowser
+    site = query.replace("open", "").strip()
+    if not site:
+        speak("What should I open?")
+        return
+    if not site.startswith("http"):
+        site = f"https://{site}" if "." in site else f"https://www.{site}.com"
+    webbrowser.open(site)
+    speak(f"Opening {site}.")
