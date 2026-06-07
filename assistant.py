@@ -281,3 +281,15 @@ def cmd_open(query):
         site = f"https://{site}" if "." in site else f"https://www.{site}.com"
     webbrowser.open(site)
     speak(f"Opening {site}.")
+
+
+@command("calc")
+def cmd_calc(query):
+    expr = query.replace("calc", "").replace("calculate", "").strip()
+    try:
+        allowed = set("0123456789+-*/.() ")
+        if not all(c in allowed for c in expr):
+            raise ValueError("Invalid characters")
+        speak(f"{expr} equals {eval(expr)}.")
+    except Exception:
+        speak("I could not evaluate that expression.")
