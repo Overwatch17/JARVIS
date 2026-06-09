@@ -293,3 +293,14 @@ def cmd_calc(query):
         speak(f"{expr} equals {eval(expr)}.")
     except Exception:
         speak("I could not evaluate that expression.")
+
+
+@command("config")
+def cmd_config(query):
+    cfg = load_config()
+    if "show" in query or "view" in query:
+        speak("Current configuration:")
+        for k, v in cfg.items():
+            speak(f"{k}: {v}")
+    else:
+        speak("Try: config show")
