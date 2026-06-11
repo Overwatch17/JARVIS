@@ -304,3 +304,12 @@ def cmd_config(query):
             speak(f"{k}: {v}")
     else:
         speak("Try: config show")
+
+
+@command("plugins")
+def cmd_plugins(query):
+    plugins = load_config().get("plugins_enabled", [])
+    if not plugins:
+        speak("No plugins enabled.")
+    else:
+        speak(f"Enabled plugins: {', '.join(plugins)}")
