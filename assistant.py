@@ -313,3 +313,19 @@ def cmd_plugins(query):
         speak("No plugins enabled.")
     else:
         speak(f"Enabled plugins: {', '.join(plugins)}")
+
+
+def dispatch(query):
+    query_lower = query.lower().strip()
+    for name, func in COMMANDS.items():
+        if name in query_lower or query_lower.startswith(name):
+            try:
+                func(query_lower)
+                log_command(query, "ok")
+                return
+            except Exception as e:
+                speak(f"Error executing {name}: {e}")
+                log_command(query, f"error: {e}")
+                return
+    speak("I did not understand. Say 'help' to see available commands.")
+    log_command(query, "unknown")
