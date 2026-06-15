@@ -329,3 +329,37 @@ def dispatch(query):
                 return
     speak("I did not understand. Say 'help' to see available commands.")
     log_command(query, "unknown")
+
+
+@command("help")
+def cmd_help(query):
+    speak("Available commands:")
+    for name in sorted(COMMANDS.keys()):
+        speak(f"- {name}")
+
+
+@command("exit")
+def cmd_exit(query):
+    speak("Goodbye.")
+    import sys
+    sys.exit(0)
+
+
+def main():
+    greet()
+    if len(sys.argv) > 1:
+        dispatch(" ".join(sys.argv[1:]))
+    else:
+        speak("Type 'exit' to quit, or 'help' for commands.")
+        while True:
+            try:
+                query = input("You: ").strip()
+                if query:
+                    dispatch(query)
+            except (KeyboardInterrupt, EOFError):
+                speak("Session ended.")
+                break
+
+
+if __name__ == "__main__":
+    main()
